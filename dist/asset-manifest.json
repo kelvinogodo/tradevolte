@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0a68a2df.css",
+    "main.js": "/static/js/main.66f7f490.js",
+    "static/js/787.04a50505.chunk.js": "/static/js/787.04a50505.chunk.js",
+    "static/media/pexels-thirdman-5256523.jpg": "/static/media/pexels-thirdman-5256523.ea1cbe92a3637415716b.jpg",
+    "static/media/bg11.jpg": "/static/media/bg11.2c34798ab49c89be6b94.jpg",
+    "static/media/1690093-netcoins-istock.jpg": "/static/media/1690093-netcoins-istock.ed8b9fc02e09031438d4.jpg",
+    "static/media/pexels-kampus-production-8428092.jpg": "/static/media/pexels-kampus-production-8428092.88f4c6cd501c9e5920d7.jpg",
+    "static/media/untitled-design.png": "/static/media/untitled-design.1b3101bb0b0f2ad591e3.png",
+    "static/media/Which-Type-of-Investment-Has-the-Highest-Risk.jpg": "/static/media/Which-Type-of-Investment-Has-the-Highest-Risk.ad9ce9fd59aeedcef7f2.jpg",
+    "index.html": "/index.html",
+    "main.0a68a2df.css.map": "/static/css/main.0a68a2df.css.map",
+    "main.66f7f490.js.map": "/static/js/main.66f7f490.js.map",
+    "787.04a50505.chunk.js.map": "/static/js/787.04a50505.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0a68a2df.css",
+    "static/js/main.66f7f490.js"
+  ]
+}
