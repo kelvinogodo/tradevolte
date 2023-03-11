@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.845fe4a4.css",
-    "main.js": "/static/js/main.85209dff.js",
+    "main.css": "/static/css/main.0dc3405a.css",
+    "main.js": "/static/js/main.14dda5fa.js",
     "static/js/787.04a50505.chunk.js": "/static/js/787.04a50505.chunk.js",
     "static/media/pexels-thirdman-5256523.jpg": "/static/media/pexels-thirdman-5256523.ea1cbe92a3637415716b.jpg",
     "static/media/bg11.jpg": "/static/media/bg11.2c34798ab49c89be6b94.jpg",
@@ -10,12 +10,12 @@
     "static/media/untitled-design.png": "/static/media/untitled-design.1b3101bb0b0f2ad591e3.png",
     "static/media/Which-Type-of-Investment-Has-the-Highest-Risk.jpg": "/static/media/Which-Type-of-Investment-Has-the-Highest-Risk.ad9ce9fd59aeedcef7f2.jpg",
     "index.html": "/index.html",
-    "main.845fe4a4.css.map": "/static/css/main.845fe4a4.css.map",
-    "main.85209dff.js.map": "/static/js/main.85209dff.js.map",
+    "main.0dc3405a.css.map": "/static/css/main.0dc3405a.css.map",
+    "main.14dda5fa.js.map": "/static/js/main.14dda5fa.js.map",
     "787.04a50505.chunk.js.map": "/static/js/787.04a50505.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.845fe4a4.css",
-    "static/js/main.85209dff.js"
+    "static/css/main.0dc3405a.css",
+    "static/js/main.14dda5fa.js"
   ]
 }

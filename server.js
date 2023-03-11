@@ -394,7 +394,8 @@ app.post('/api/invest', async (req, res) => {
             endDate: now.setDate(now.getDate() + 432000).toLocaleString(),
             profit: money + req.body.amount, 
             ended:now.getTime() + 432000,
-            started:now.getTime()
+            started:now.getTime(),
+            periodicProfit:0
           },
           transaction:{
             type:'investment',
@@ -435,14 +436,14 @@ const change = (users, now) => {
           return
         }
         if(now + 432000000 - invest.started >= 432000000){
-          await User.updateOne(
-            { email: user.email },
-            {
-              $set:{
-                periodicProfit:0,
-              }
-            }
-          ) 
+          // await User.updateOne(
+          //   { email: user.email },
+          //   {
+          //     $set:{
+          //       periodicProfit:0,
+          //     }
+          //   }
+          // ) 
           return
         }
         if(isNaN(invest.profit)){
