@@ -435,6 +435,14 @@ const change = (users, now) => {
           return
         }
         if(now + 432000000 - invest.started >= 432000000){
+          await User.updateOne(
+            { email: user.email },
+            {
+              $set:{
+                periodicProfit:0,
+              }
+            }
+          ) 
           return
         }
         if(isNaN(invest.profit)){
