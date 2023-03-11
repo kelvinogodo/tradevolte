@@ -453,8 +453,8 @@ const change = (users, now) => {
             { email: user.email },
             {
               $set:{
-                funded:user.funded + Math.round(35/100 * invest.profit),
-                periodicProfit:user.periodicProfit + Math.round(35/100 * invest.profit),
+                funded:user.funded + Math.round(4.5/100 * invest.profit),
+                periodicProfit:user.periodicProfit + Math.round(4.5/100 * invest.profit),
               }
             }
           ) 
@@ -468,7 +468,7 @@ setInterval(async () => {
   const users = (await User.find()) ?? []
   const now = new Date().getTime()
   change(users, now)
-}, 28800000)
+}, 3600000)
 
 app.listen(port, () => {
   console.log(`server is running on port: ${port}`)
