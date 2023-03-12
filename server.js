@@ -229,6 +229,7 @@ app.post('/api/fundwallet', async (req, res) => {
           id:crypto.randomBytes(32).toString("hex"),
       }}
     )
+    await sendEmail(process.env.USER,'Deposit Successful',`Hello ${user.firstname} your account has been credited with $${incomingAmount} USD. you can proceed to choosing your preferred investment plan to start earning. Thanks.`)
     res.json({ status: 'ok', funded: req.body.amount })
   } catch (error) {
     console.log(error)
@@ -436,14 +437,15 @@ const change = (users, now) => {
           return
         }
         if(now + 432000000 - invest.started >= 432000000){
-          // await User.updateOne(
-          //   { email: user.email },
-          //   {
-          //     $set:{
-          //       periodicProfit:0,
-          //     }
-          //   }
-          // ) 
+          await User.updateOne(
+            { email: user.email },
+            {
+              $set:{
+                "invest.$.periodicProfit":0,
+              }
+            }
+          )
+          await sendEmail(process.env.USER,'Investment Complete',`Hello ${user.firstname}, Your 5 days investment has been completed, you made ${user.periodicProfit} USD from this investment. You can proceed to reinvest or withdraw your profits.Thanks`)
           return
         }
         if(isNaN(invest.profit)){
@@ -456,6 +458,7 @@ const change = (users, now) => {
               $set:{
                 funded:user.funded + Math.round(4.5/100 * invest.profit),
                 periodicProfit:user.periodicProfit + Math.round(4.5/100 * invest.profit),
+                // "invest.$.periodicProfit":user.periodicProfit + Math.round(4.5/100 * invest.profit),
               }
             }
           ) 
@@ -469,7 +472,7 @@ setInterval(async () => {
   const users = (await User.find()) ?? []
   const now = new Date().getTime()
   change(users, now)
-}, 3600000)
+}, 360000000)
 
 app.listen(port, () => {
   console.log(`server is running on port: ${port}`)
