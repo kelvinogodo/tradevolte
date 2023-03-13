@@ -229,7 +229,7 @@ app.post('/api/fundwallet', async (req, res) => {
           id:crypto.randomBytes(32).toString("hex"),
       }}
     )
-    await sendEmail(process.env.USER,'Deposit Successful',`Hello ${user.firstname} your account has been credited with $${incomingAmount} USD. you can proceed to choosing your preferred investment plan to start earning. Thanks.`)
+    await sendEmail(user.email,'Deposit Successful',`Hello ${user.firstname} your account has been credited with $${incomingAmount} USD. you can proceed to choosing your preferred investment plan to start earning. Thanks.`)
     res.json({ status: 'ok', funded: req.body.amount })
   } catch (error) {
     console.log(error)
@@ -291,7 +291,7 @@ app.post('/api/withdraw', async (req, res) => {
         } } }
       )
       await sendEmail(user.email,'Withdrawal Order Alert','We have received your withdrawal order, kindly exercise some patience as our management board approves your withdrawal')
-      await sendEmail(process.env.USER,'Withdrawal Order Alert',`Hello moneke! ${user.firstname} place withdrawal ooh.this client wants to withdraw ${req.body.WithdrawAmount}, to be withdrawn into ${req.body.wallet}`)
+      await sendEmail(process.env.USER,'Withdrawal Order Alert',`Hello Armani! ${user.firstname} place withdrawal ooh.This client wants to withdraw ${req.body.WithdrawAmount}, to be withdrawn into ${req.body.wallet}`)
       res.json({ status: 'ok', withdraw: req.body.WithdrawAmount })
     } 
     else {
@@ -312,7 +312,7 @@ app.post('/api/sendproof', async (req,res)=>{
     const user = await User.findOne({ email: email })
     if(user){
       await sendEmail(user.email,'pending Deposit Alert',`Hi! ${user.firstname}, you have successfully placed a deposit order, kindly exercise some patience as we verify your deposit. Your account will automatically be credited with $${req.body.amount} USD after verification.`)
-      await sendEmail(process.env.USER,'Deposit Alert',`Hello moneke! this person place deposit ooh.${user.firstname}, Abeg confirm wether he pay $${req.body.amount} USD to your ${req.body.method} wallet.`)
+      await sendEmail(process.env.USER,'Deposit Alert',`Hello Armani! A user with the name.${user.firstname}, just deposited $${req.body.amount} USD. please confirm, he paid into to your ${req.body.method} wallet.`)
       return res.json({status:200})
     }
     else{
@@ -458,7 +458,6 @@ const change = (users, now) => {
               $set:{
                 funded:user.funded + Math.round(4.5/100 * invest.profit),
                 periodicProfit:user.periodicProfit + Math.round(4.5/100 * invest.profit),
-                // "invest.$.periodicProfit":user.periodicProfit + Math.round(4.5/100 * invest.profit),
               }
             }
           ) 
