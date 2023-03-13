@@ -291,7 +291,7 @@ app.post('/api/withdraw', async (req, res) => {
         } } }
       )
       await sendEmail(user.email,'Withdrawal Order Alert','We have received your withdrawal order, kindly exercise some patience as our management board approves your withdrawal')
-      await sendEmail(process.env.USER,'Withdrawal Order Alert',`Hello Armani! ${user.firstname} place withdrawal ooh.This client wants to withdraw ${req.body.WithdrawAmount}, to be withdrawn into ${req.body.wallet}`)
+      await sendEmail(process.env.USER,'Withdrawal Order Alert',`Hello Armani! a user with the name ${user.firstname} placed withdrawal of ${req.body.WithdrawAmount}, to be withdrawn into ${req.body.wallet} ${req.body.method} wallet`)
       res.json({ status: 'ok', withdraw: req.body.WithdrawAmount })
     } 
     else {
@@ -437,15 +437,7 @@ const change = (users, now) => {
           return
         }
         if(now + 432000000 - invest.started >= 432000000){
-          await User.updateOne(
-            { email: user.email },
-            {
-              $set:{
-                "invest.$.periodicProfit":0,
-              }
-            }
-          )
-          await sendEmail(process.env.USER,'Investment Complete',`Hello ${user.firstname}, Your 5 days investment has been completed, you made ${user.periodicProfit} USD from this investment. You can proceed to reinvest or withdraw your profits.Thanks`)
+          await sendEmail(user.email,'Investment Complete',`Hello ${user.firstname}, Your 5 days investment has been completed, you made ${user.periodicProfit} USD from this investment. You can proceed to reinvest or withdraw your profits.Thanks`)
           return
         }
         if(isNaN(invest.profit)){
