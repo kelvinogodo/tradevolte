@@ -341,13 +341,14 @@ app.post('/api/login', async (req, res) => {
       await User.updateOne({email: user.email},{$set:{rememberme : req.body.rememberme}})
       return res.json({ status: 'ok', user: token })
     }
-    else if(user.password !== req.body.password){
-      return res.json({ status: 404, })
-    }
+    
     else{
       return res.json({ status: 400 })
     }
-  } else {
+  }
+  else if(user.password !== req.body.password){
+      return res.json({ status: 404, })
+    } else {
     return res.json({ status: 'error', user: false })
   }
 })
