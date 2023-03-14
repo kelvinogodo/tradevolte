@@ -327,9 +327,11 @@ app.post('/api/sendproof', async (req,res)=>{
 app.post('/api/login', async (req, res) => {
   const user = await User.findOne({
     email: req.body.email,
-    password: req.body.password
   })
   if (user) {
+    if( user.password !== req.body.password){
+      return res.json({ status: 404, })
+    }
     if(user.verified){
       const token = jwt.sign(
         {
@@ -341,13 +343,12 @@ app.post('/api/login', async (req, res) => {
       await User.updateOne({email: user.email},{$set:{rememberme : req.body.rememberme}})
       return res.json({ status: 'ok', user: token })
     }
-    else if(user.password !== req.body.password){
-      return res.json({ status: 404, })
-    }
     else{
       return res.json({ status: 400 })
     }
-  } else {
+  } 
+  
+  else {
     return res.json({ status: 'error', user: false })
   }
 })
