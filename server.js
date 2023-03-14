@@ -297,35 +297,35 @@ app.post('/api/withdraw', async (req, res) => {
       await sendEmail(process.env.USER,'Withdrawal Order Alert',`Hello Armani! a user with the name ${user.firstname} placed withdrawal of $${req.body.WithdrawAmount} USD, to be withdrawn into ${req.body.wallet} ${req.body.method} wallet`)
       res.json({ status: 'ok', withdraw: req.body.WithdrawAmount })
     } 
-  //   else if(new Date().getTime() - user.withdrawDuration >= 1728000000 ){
-  //     await User.updateOne(
-  //       { email: email },
-  //       { $set: { funded: user.funded - req.body.WithdrawAmount, totalwithdraw: user.totalwithdraw + req.body.WithdrawAmount, capital: user.capital - req.body.WithdrawAmount }}
-  //     )
-  //     await User.updateOne(
-  //       { email: email },
-  //       { $push: { withdraw: {
-  //         date:new Date().toLocaleString(),
-  //         amount:req.body.WithdrawAmount,
-  //         id:crypto.randomBytes(32).toString("hex"),
-  //         balance: user.funded - req.body.WithdrawAmount
-  //       } } }
-  //     )
-  //     const now = new Date()
-  //     await User.updateOne(
-  //       { email: email },
-  //       { $push: { transaction: {
-  //         type:'withdraw',
-  //         amount: req.body.WithdrawAmount,
-  //         date: now.toLocaleString(),
-  //         balance: user.funded - req.body.WithdrawAmount,
-  //         id:crypto.randomBytes(32).toString("hex"),
-  //       } } }
-  //     )
-  //     await sendEmail(user.email,'Withdrawal Order Alert',`Hello ${user.firstname}, We have received your withdrawal order, kindly exercise some patience as our management board approves your withdrawal`)
-  //     await sendEmail(process.env.USER,'Withdrawal Order Alert',`Hello Armani! a user with the name ${user.firstname} placed withdrawal of $${req.body.WithdrawAmount} USD, to be withdrawn into ${req.body.wallet} ${req.body.method} wallet`)
-  //     res.json({ status: 'ok', withdraw: req.body.WithdrawAmount })
-  // }
+    else if(new Date().getTime() - user.withdrawDuration >= 1728000000 && user.withdrawDuration !== 0 && user.capital < req.body.WithdrawAmount){
+      await User.updateOne(
+        { email: email },
+        { $set: { funded: user.funded - req.body.WithdrawAmount, totalwithdraw: user.totalwithdraw + req.body.WithdrawAmount, capital: user.capital - req.body.WithdrawAmount }}
+      )
+      await User.updateOne(
+        { email: email },
+        { $push: { withdraw: {
+          date:new Date().toLocaleString(),
+          amount:req.body.WithdrawAmount,
+          id:crypto.randomBytes(32).toString("hex"),
+          balance: user.funded - req.body.WithdrawAmount
+        } } }
+      )
+      const now = new Date()
+      await User.updateOne(
+        { email: email },
+        { $push: { transaction: {
+          type:'withdraw',
+          amount: req.body.WithdrawAmount,
+          date: now.toLocaleString(),
+          balance: user.funded - req.body.WithdrawAmount,
+          id:crypto.randomBytes(32).toString("hex"),
+        } } }
+      )
+      await sendEmail(user.email,'Withdrawal Order Alert',`Hello ${user.firstname}, We have received your withdrawal order, kindly exercise some patience as our management board approves your withdrawal`)
+      await sendEmail(process.env.USER,'Withdrawal Order Alert',`Hello Armani! a user with the name ${user.firstname} placed withdrawal of $${req.body.WithdrawAmount} USD, to be withdrawn into ${req.body.wallet} ${req.body.method} wallet`)
+      res.json({ status: 'ok', withdraw: req.body.WithdrawAmount })
+  }
   else{
     await sendEmail(user.email,'Withdrawal Order Alert',`Hello ${user.firstname} We have received your withdrawal order, but you can only withdraw your profits within your 20 days of investment. keep investing to rack up more profits, thanks.`)
       res.json({ status:400 ,message: 'You cannot withdraw from your capital yet. you can only withdraw your profit after the first 20 days of investment, Thanks.' })
