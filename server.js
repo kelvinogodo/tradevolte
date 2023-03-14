@@ -31,6 +31,10 @@ app.get(
     '/deposit',
     '/checkout',
     '/withdrawlogs',
+    '/faq',
+    '/about',
+    '/policy',
+    '/buybitcoin',
     '/users/:id/verify/:token',
   ],
   (req, res) => res.sendFile(path.join(process.cwd(), '/dist/index.html'))
@@ -209,6 +213,7 @@ app.post('/api/fundwallet', async (req, res) => {
       { email: email },{
       $set : {
         funded: incomingAmount + user.funded,
+        capital :user.capital + incomingAmount,
         totaldeposit: user.totaldeposit + incomingAmount
       }}
     )
@@ -248,11 +253,9 @@ app.post('/api/admin', async (req, res) => {
 })
 
 
-app.post('/api/setPromo', async (req, res) => {
+app.post('/api/deleteUser', async (req, res) => {
   try {
-      await User.updateOne({email:req.body.email},{
-        $set: {promo:true}
-      })
+      await User.deleteOne({email:req.body.email})
       return res.json({status:200})
   } catch (error) {
     return res.json({status:500,msg:`${error}`})
@@ -265,10 +268,10 @@ app.post('/api/withdraw', async (req, res) => {
     const decode = jwt.verify(token, 'secret1258')
     const email = decode.email
     const user = await User.findOne({ email: email })
-    if (user.funded >= req.body.WithdrawAmount) {
+    if (user.totalprofit >= req.body.WithdrawAmount ) {
       await User.updateOne(
         { email: email },
-        { $set: { funded: user.funded - req.body.WithdrawAmount, totalwithdraw: user.totalwithdraw + req.body.WithdrawAmount }}
+        { $set: { funded: user.funded - req.body.WithdrawAmount, totalwithdraw: user.totalwithdraw + req.body.WithdrawAmount, capital: user.capital - req.body.WithdrawAmount }}
       )
       await User.updateOne(
         { email: email },
@@ -276,7 +279,7 @@ app.post('/api/withdraw', async (req, res) => {
           date:new Date().toLocaleString(),
           amount:req.body.WithdrawAmount,
           id:crypto.randomBytes(32).toString("hex"),
-          balance: user.funded
+          balance: user.funded - req.body.WithdrawAmount
         } } }
       )
       const now = new Date()
@@ -290,15 +293,44 @@ app.post('/api/withdraw', async (req, res) => {
           id:crypto.randomBytes(32).toString("hex"),
         } } }
       )
-      await sendEmail(user.email,'Withdrawal Order Alert','We have received your withdrawal order, kindly exercise some patience as our management board approves your withdrawal')
+      await sendEmail(user.email,'Withdrawal Order Alert',`Hello ${user.firstname}, We have received your withdrawal order, kindly exercise some patience as our management board approves your withdrawal`)
       await sendEmail(process.env.USER,'Withdrawal Order Alert',`Hello Armani! a user with the name ${user.firstname} placed withdrawal of $${req.body.WithdrawAmount} USD, to be withdrawn into ${req.body.wallet} ${req.body.method} wallet`)
       res.json({ status: 'ok', withdraw: req.body.WithdrawAmount })
     } 
-    else {
-      await sendEmail(user.email,'Withdrawal Order Alert',`Sorry! ${user.firstname} You dont insufficient funds to complete this process. fund your account and try again.`)
-      res.json({ status:400 ,message: 'You do not have sufficient amount in your account' })
-    }
-  } catch (error) {
+    else if(new Date().getTime() - user.withdrawDuration >= 1728000000 ){
+      await User.updateOne(
+        { email: email },
+        { $set: { funded: user.funded - req.body.WithdrawAmount, totalwithdraw: user.totalwithdraw + req.body.WithdrawAmount, capital: user.capital - req.body.WithdrawAmount }}
+      )
+      await User.updateOne(
+        { email: email },
+        { $push: { withdraw: {
+          date:new Date().toLocaleString(),
+          amount:req.body.WithdrawAmount,
+          id:crypto.randomBytes(32).toString("hex"),
+          balance: user.funded - req.body.WithdrawAmount
+        } } }
+      )
+      const now = new Date()
+      await User.updateOne(
+        { email: email },
+        { $push: { transaction: {
+          type:'withdraw',
+          amount: req.body.WithdrawAmount,
+          date: now.toLocaleString(),
+          balance: user.funded - req.body.WithdrawAmount,
+          id:crypto.randomBytes(32).toString("hex"),
+        } } }
+      )
+      await sendEmail(user.email,'Withdrawal Order Alert',`Hello ${user.firstname}, We have received your withdrawal order, kindly exercise some patience as our management board approves your withdrawal`)
+      await sendEmail(process.env.USER,'Withdrawal Order Alert',`Hello Armani! a user with the name ${user.firstname} placed withdrawal of $${req.body.WithdrawAmount} USD, to be withdrawn into ${req.body.wallet} ${req.body.method} wallet`)
+      res.json({ status: 'ok', withdraw: req.body.WithdrawAmount })
+  }
+  else{
+    await sendEmail(user.email,'Withdrawal Order Alert',`Hello ${user.firstname} We have received your withdrawal order, but you can only withdraw your profits within your 20 days of investment. keep investing to rack up more profits, thanks.`)
+      res.json({ status:400 ,message: 'You cannot withdraw from your capital yet. you can only withdraw your profit after the first 20 days of investment, Thanks.' })
+  }}
+   catch (error) {
     console.log(error)
     res.json({ status: 'error',message:'internal server error' })
   }
@@ -384,7 +416,7 @@ app.post('/api/invest', async (req, res) => {
           return (req.body.amount * 8.5) / 100
       }
     })()
-    if (user.funded >= req.body.amount) {
+    if (user.capital >= req.body.amount) {
       const now = new Date()
       await User.updateOne(
         { email: email },
@@ -397,7 +429,7 @@ app.post('/api/invest', async (req, res) => {
             percent:req.body.percent, 
             startDate: now.toLocaleString(),
             endDate: now.setDate(now.getDate() + 432000).toLocaleString(),
-            profit: money + req.body.amount, 
+            profit: money, 
             ended:now.getTime() + 432000,
             started:now.getTime(),
             periodicProfit:0
@@ -406,7 +438,7 @@ app.post('/api/invest', async (req, res) => {
             type:'investment',
             amount: req.body.amount,
             date: now.toLocaleString(),
-            balance: user.funded - req.body.amount,
+            balance: user.funded,
             id:crypto.randomBytes(32).toString("hex")
           }
         }
@@ -415,7 +447,7 @@ app.post('/api/invest', async (req, res) => {
       await User.updateOne(
         { email: email },
         {
-          $set: {funded: user.funded - req.body.amount, totalprofit : user.totalprofit + money + req.body.amount}
+          $set: {capital : user.capital - req.body.amount, totalprofit : user.totalprofit + money ,withdrawDuration: now.getTime()}
         }
       )
       res.json({ status: 'ok', amount: req.body.amount })
@@ -454,6 +486,7 @@ const change = (users, now) => {
               $set:{
                 funded:user.funded + Math.round(4.5/100 * invest.profit),
                 periodicProfit:user.periodicProfit + Math.round(4.5/100 * invest.profit),
+                capital:user.capital + Math.round(4.5/100 * invest.profit),
               }
             }
           ) 
@@ -472,3 +505,5 @@ setInterval(async () => {
 app.listen(port, () => {
   console.log(`server is running on port: ${port}`)
 })
+
+console.log(new Date().getTime())

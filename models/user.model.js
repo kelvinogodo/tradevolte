@@ -7,6 +7,7 @@ const user = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     funded: { type: Number },
+    capital: { type: Number,default:0 },
     investment: { type:[Object] },
     transaction: { type:[Object] },
     withdraw: { type:[Object] },
@@ -27,6 +28,7 @@ const user = new mongoose.Schema(
     totaldeposit:{type:Number,default:0},
     totalwithdraw:{type:Number,default:0},
     promo:{type:Boolean,default:false},
+    withdrawDuration:{type:Number,default:0}
   }
 )
 const User = mongoose.models.User || mongoose.model('User', user)
