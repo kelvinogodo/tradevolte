@@ -328,7 +328,7 @@ app.post('/api/withdraw', async (req, res) => {
   }
   else{
     await sendEmail(user.email,'Withdrawal Order Alert',`Hello ${user.firstname} We have received your withdrawal order, but you can only withdraw your profits within your 20 days of investment. keep investing to rack up more profits, thanks.`)
-      res.json({ status:400 ,message: 'You cannot withdraw from your capital yet. you can only withdraw your profit after the first 20 days of investment, Thanks.' })
+      res.json({ status:400 ,message: 'insufficient Amount! You cannot withdraw from your capital yet. you can only withdraw your profit after the first 20 days of investment, Thanks.' })
   }}
    catch (error) {
     console.log(error)
