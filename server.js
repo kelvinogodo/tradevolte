@@ -490,7 +490,7 @@ const change = (users, now) => {
                 capital:user.capital + Math.round(18/100 * invest.profit),
               }
             }
-          ) 
+          )
         }
  })
 })
