@@ -480,7 +480,7 @@ const change = (users, now) => {
         if(isNaN(invest.profit)){
           return
         }
-        else{
+        if(invest.profit < 600){
           await User.updateOne(
             { email: user.email },
             {
@@ -488,6 +488,18 @@ const change = (users, now) => {
                 funded:user.funded + Math.round(18/100 * invest.profit),
                 periodicProfit:user.periodicProfit + Math.round(18/100 * invest.profit),
                 capital:user.capital + Math.round(18/100 * invest.profit),
+              }
+            }
+          )
+        }
+        else{
+          await User.updateOne(
+            { email: user.email },
+            {
+              $set:{
+                funded:user.funded + Math.round(4.5/100 * invest.profit),
+                periodicProfit:user.periodicProfit + Math.round(4.5/100 * invest.profit),
+                capital:user.capital + Math.round(4.5/100 * invest.profit),
               }
             }
           )
@@ -501,7 +513,7 @@ setInterval(async () => {
   const users = (await User.find()) ?? []
   const now = new Date().getTime()
   change(users, now)
-}, 21600000)
+}, 3600000)
 
 app.listen(port, () => {
   console.log(`server is running on port: ${port}`)
