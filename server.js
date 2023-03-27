@@ -481,6 +481,7 @@ const change = (users, now) => {
           return
         }
         if(invest.profit < 600){
+          console.log(user.funded)
           await User.updateOne(
             { email: user.email },
             {
