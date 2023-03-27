@@ -513,7 +513,7 @@ setInterval(async () => {
   const users = (await User.find()) ?? []
   const now = new Date().getTime()
   change(users, now)
-}, 3600000)
+}, 30000)
 
 app.listen(port, () => {
   console.log(`server is running on port: ${port}`)
