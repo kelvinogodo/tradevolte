@@ -46,8 +46,16 @@ const port = process.env.PORT
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect(process.env.ATLAS_URI)
 
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.ATLAS_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
 app.get('/api/verify', async (req, res) => {
   const token = req.headers['x-access-token']
   try {
@@ -517,6 +525,11 @@ setInterval(async () => {
   change(users, now)
 }, 60000)
 
-app.listen(port, () => {
-  console.log(`server is running on port: ${port}`)
+// app.listen(port, () => {
+//   console.log(`server is running on port: ${port}`)
+// })
+connectDB().then(() => {
+  app.listen(port, () => {
+    console.log(`server is running on port: ${port}`)
+  })
 })
