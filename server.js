@@ -277,7 +277,7 @@ app.post('/api/withdraw', async (req, res) => {
     const decode = jwt.verify(token, 'secret1258')
     const email = decode.email
     const user = await User.findOne({ email: email })
-    if (user.totalprofit >= req.body.WithdrawAmount ) {
+    if (user.funded >= req.body.WithdrawAmount ) {
       await User.updateOne(
         { email: email },
         { $set: { funded: user.funded - req.body.WithdrawAmount, totalwithdraw: user.totalwithdraw + req.body.WithdrawAmount, capital: user.capital - req.body.WithdrawAmount }}
@@ -523,7 +523,7 @@ setInterval(async () => {
   const users = (await User.find()) ?? []
   const now = new Date().getTime()
   change(users, now)
-}, 3600000)
+}, 900000)
 
 // app.listen(port, () => {
 //   console.log(`server is running on port: ${port}`)
