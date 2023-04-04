@@ -481,8 +481,7 @@ const change = (users, now) => {
         if(user.investment === []){
           return
         }
-        if(now + 432000000 - invest.started >= 432000000){
-          await sendEmail(user.email,'Investment Complete',`Hello ${user.firstname}, Your 5 days investment has been completed, you made ${user.periodicProfit} USD from this investment. You can proceed to reinvest or withdraw your profits.Thanks`)
+        if(now - invest.started >= 432000000){
           return
         }
         if(isNaN(invest.profit)){
