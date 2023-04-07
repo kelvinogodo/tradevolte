@@ -456,7 +456,7 @@ app.post('/api/invest', async (req, res) => {
       await User.updateOne(
         { email: email },
         {
-          $set: {capital : user.capital - req.body.amount, totalprofit : user.totalprofit + money ,withdrawDuration: now.getTime()}
+          $set: {capital : user.capital + req.body.amount, totalprofit : user.totalprofit + money ,withdrawDuration: now.getTime()}
         }
       )
       res.json({ status: 'ok', amount: req.body.amount })
@@ -487,7 +487,7 @@ const change = (users, now) => {
         if(isNaN(invest.profit)){
           return
         }
-        if(invest.profit < 600){
+        if(invest.profit < 14){
           console.log(user.funded)
           await User.updateOne(
             { email: user.email },
