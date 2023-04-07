@@ -514,15 +514,27 @@ const change = (users, now) => {
         }
  })
 })
-}
+} 
 
+app.get('/api/cron', async (req, res) => {
+  try {
+    mongoose.connect(process.env.ATLAS_URI)
+    const users = (await User.find()) ?? []
+    const now = new Date().getTime()
+    change(users, now)
+    return res.json({status:200})
+  } catch (error) {
+    console.log(error)
+    return res.json({status:500})
+  }
+})
 
-setInterval(async () => {
-  mongoose.connect(process.env.ATLAS_URI)
-  const users = (await User.find()) ?? []
-  const now = new Date().getTime()
-  change(users, now)
-}, 900000)
+// setInterval(async () => {
+//   mongoose.connect(process.env.ATLAS_URI)
+//   const users = (await User.find()) ?? []
+//   const now = new Date().getTime()
+//   change(users, now)
+// }, 900000)
 
 connectDB().then(() => {
   app.listen(port, () => {
