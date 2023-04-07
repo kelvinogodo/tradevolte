@@ -524,9 +524,6 @@ setInterval(async () => {
   change(users, now)
 }, 900000)
 
-// app.listen(port, () => {
-//   console.log(`server is running on port: ${port}`)
-// })
 connectDB().then(() => {
   app.listen(port, () => {
     console.log(`server is running on port: ${port}`)
