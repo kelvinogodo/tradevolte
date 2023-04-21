@@ -437,9 +437,9 @@ app.post('/api/invest', async (req, res) => {
             plan: req.body.plan, 
             percent:req.body.percent, 
             startDate: now.toLocaleString(),
-            endDate: now.setDate(now.getDate() + 432000).toLocaleString(),
+            endDate: now.setDate(now.getDate() + 432000000).toLocaleString(),
             profit: money, 
-            ended:now.getTime() + 432000,
+            ended:now.getTime() + 432000000,
             started:now.getTime(),
             periodicProfit:0
           },
@@ -481,7 +481,7 @@ const change = (users, now) => {
         if(user.investment === []){
           return
         }
-        if(now - invest.started >= 432000000){
+        if(invest.ended - invest.started <= 0){
           return
         }
         if(isNaN(invest.profit)){
