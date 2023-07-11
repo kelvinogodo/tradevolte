@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const user = new mongoose.Schema(
   {
     firstname: { type: String, required: true },
-    lastname: { type: String, required: true },
+    lastname: { type: String, required: true,unique: true },
+    username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     funded: { type: Number },
@@ -16,7 +17,8 @@ const user = new mongoose.Schema(
     verified:{type:Boolean, default:false},
     referral:{type:String,unique:true},
     refBonus:{type:Number},
-    referred:{type:[Object],default:[]},
+    referred: { type: [Object], default: [] },
+    upline:{type:String,default:''},
     phonenumber:{type:String,default:''},
     state:{type: String,default:''},
     country:{type: String,default:''},
@@ -28,7 +30,8 @@ const user = new mongoose.Schema(
     totaldeposit:{type:Number,default:0},
     totalwithdraw:{type:Number,default:0},
     promo:{type:Boolean,default:false},
-    withdrawDuration:{type:Number,default:0}
+    withdrawDuration:{type:Number,default:0},
+    completed:{type:Boolean,default:false},
   }
 )
 const User = mongoose.models.User || mongoose.model('User', user)

@@ -1,21 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.8e33c728.css",
-    "main.js": "/static/js/main.09bf6241.js",
+    "main.css": "/static/css/main.9d5b3e70.css",
+    "main.js": "/static/js/main.c9cf01b4.js",
     "static/js/787.04a50505.chunk.js": "/static/js/787.04a50505.chunk.js",
-    "static/media/pexels-thirdman-5256523.jpg": "/static/media/pexels-thirdman-5256523.ea1cbe92a3637415716b.jpg",
-    "static/media/bg11.jpg": "/static/media/bg11.2c34798ab49c89be6b94.jpg",
-    "static/media/1690093-netcoins-istock.jpg": "/static/media/1690093-netcoins-istock.ed8b9fc02e09031438d4.jpg",
-    "static/media/pexels-kampus-production-8428092.jpg": "/static/media/pexels-kampus-production-8428092.88f4c6cd501c9e5920d7.jpg",
-    "static/media/untitled-design.png": "/static/media/untitled-design.1b3101bb0b0f2ad591e3.png",
+    "static/media/pexels-sevenstorm-juhaszimrus-439416.jpg": "/static/media/pexels-sevenstorm-juhaszimrus-439416.e63282a850e843246579.jpg",
+    "static/media/pexels-michael-steinberg-366551.jpg": "/static/media/pexels-michael-steinberg-366551.82339d350d3deb7d13bb.jpg",
+    "static/media/pexels-thirdman-7652051.jpg": "/static/media/pexels-thirdman-7652051.5db69558765d3290acc0.jpg",
+    "static/media/pexels-tima-miroshnichenko-5439391.jpg": "/static/media/pexels-tima-miroshnichenko-5439391.1f931a6ef063524eba37.jpg",
+    "static/media/pexels-mikhail-nilov-7734569.jpg": "/static/media/pexels-mikhail-nilov-7734569.e8dc9b93f995de48cc5a.jpg",
+    "static/media/Invest4Land-Agriculture-Real-Estate-Investment-Investing-Farmland-Farming-Agrobusiness-Investor-Property-Managed-Farmland-Turkey-Spain-Almond-Walnut0.jpg": "/static/media/Invest4Land-Agriculture-Real-Estate-Investment-Investing-Farmland-Farming-Agrobusiness-Investor-Property-Managed-Farmland-Turkey-Spain-Almond-Walnut0.90116ba1bd294aa8fcc4.jpg",
     "static/media/Which-Type-of-Investment-Has-the-Highest-Risk.jpg": "/static/media/Which-Type-of-Investment-Has-the-Highest-Risk.ad9ce9fd59aeedcef7f2.jpg",
+    "static/media/How-Citizenship-by-Investment-Unlocks-the-Potential-of-Cryptocurrency.webp": "/static/media/How-Citizenship-by-Investment-Unlocks-the-Potential-of-Cryptocurrency.7ca3470510690f6520df.webp",
     "index.html": "/index.html",
-    "main.8e33c728.css.map": "/static/css/main.8e33c728.css.map",
-    "main.09bf6241.js.map": "/static/js/main.09bf6241.js.map",
+    "main.9d5b3e70.css.map": "/static/css/main.9d5b3e70.css.map",
+    "main.c9cf01b4.js.map": "/static/js/main.c9cf01b4.js.map",
     "787.04a50505.chunk.js.map": "/static/js/787.04a50505.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8e33c728.css",
-    "static/js/main.09bf6241.js"
+    "static/css/main.9d5b3e70.css",
+    "static/js/main.c9cf01b4.js"
   ]
 }
