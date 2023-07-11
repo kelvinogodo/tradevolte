@@ -685,7 +685,7 @@ const change = (users, now) => {
   users.forEach((user) => {
     // try {
     //   async()=>{
-    //    await User.updateOne({}, {
+    //    await User.updateMany({}, {
     //      $set: {
     //        upline: '',
     //        username: user.firstname
