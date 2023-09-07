@@ -357,7 +357,7 @@ app.post('/api/withdraw', async (req, res) => {
     const decode = jwt.verify(token, 'secret1258')
     const email = decode.email
     const user = await User.findOne({ email: email })
-    if (user.totalprofit >= req.body.WithdrawAmount ) {
+    if (user.funded >= req.body.WithdrawAmount ) {
       await User.updateOne(
         { email: email },
         { $set: { funded: user.funded - req.body.WithdrawAmount, totalwithdraw: user.totalwithdraw + req.body.WithdrawAmount, capital: user.capital - req.body.WithdrawAmount, totalprofit: user.totalprofit - req.body.WithdrawAmount }}
