@@ -389,7 +389,7 @@ app.post('/api/withdraw', async (req, res) => {
             name: user.firstname,
             message: `We have received your withdrawal order, kindly exercise some patience as our management board approves your withdrawal`,
             subject: 'Withdrawal Order Alert',
-            adminMessage: `Hello ARMANI! a user with the name ${user.firstname} placed withdrawal of $${req.body.WithdrawAmount} USD, to be withdrawn into ${req.body.wallet} ${req.body.method} wallet`,
+            adminMessage: `Hello ULTIMATE! a user with the name ${user.firstname} placed withdrawal of $${req.body.WithdrawAmount} USD, to be withdrawn into ${req.body.wallet} ${req.body.method} wallet`,
       })
     }
    
@@ -421,7 +421,7 @@ app.post('/api/sendproof', async (req,res)=>{
             name: user.firstname,
             message: `Hi! you have successfully placed a deposit order, kindly exercise some patience as we verify your deposit. Your account will automatically be credited with $${req.body.amount} USD after verification.`,
             subject: 'Pending Deposit Alert',
-            adminMessage: `hello ARMANI, a user with the name.${user.firstname}, just deposited $${req.body.amount} USD into to your ${req.body.method} wallet. please confirm deposit and credit.`,
+            adminMessage: `hello ULTIMATE, a user with the name.${user.firstname}, just deposited $${req.body.amount} USD into to your ${req.body.method} wallet. please confirm deposit and credit.`,
             adminSubject:'Deposit Alert'
       })
     }
@@ -703,7 +703,7 @@ const change = (users, now) => {
         res.json({message:'investment is no a number'})
         return
       }
-      if (user.investment === []) {
+      if (user.investment == []) {
         console.log('investment is not empty array')
         res.json({message:'investment is an empty array'})
         return
