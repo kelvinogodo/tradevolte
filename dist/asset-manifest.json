@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.9d5b3e70.css",
-    "main.js": "/static/js/main.4f43cbef.js",
+    "main.js": "/static/js/main.c9cf01b4.js",
     "static/js/787.04a50505.chunk.js": "/static/js/787.04a50505.chunk.js",
     "static/media/pexels-sevenstorm-juhaszimrus-439416.jpg": "/static/media/pexels-sevenstorm-juhaszimrus-439416.e63282a850e843246579.jpg",
     "static/media/pexels-michael-steinberg-366551.jpg": "/static/media/pexels-michael-steinberg-366551.82339d350d3deb7d13bb.jpg",
@@ -13,11 +13,11 @@
     "static/media/How-Citizenship-by-Investment-Unlocks-the-Potential-of-Cryptocurrency.webp": "/static/media/How-Citizenship-by-Investment-Unlocks-the-Potential-of-Cryptocurrency.7ca3470510690f6520df.webp",
     "index.html": "/index.html",
     "main.9d5b3e70.css.map": "/static/css/main.9d5b3e70.css.map",
-    "main.4f43cbef.js.map": "/static/js/main.4f43cbef.js.map",
+    "main.c9cf01b4.js.map": "/static/js/main.c9cf01b4.js.map",
     "787.04a50505.chunk.js.map": "/static/js/787.04a50505.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9d5b3e70.css",
-    "static/js/main.4f43cbef.js"
+    "static/js/main.c9cf01b4.js"
   ]
 }

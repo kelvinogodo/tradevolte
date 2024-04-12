@@ -475,18 +475,18 @@ app.post('/api/invest', async (req, res) => {
 
     const money = (() => {
       switch (req.body.percent) {
-        case '2%':
-          return (req.body.amount * 2) / 100
-        case '3.5%':
-          return (req.body.amount * 3.5) / 100
-        case '4.5%':
-          return (req.body.amount * 4.5) / 100
-        case '6%':
-          return (req.body.amount * 6) / 100
-        case '7%':
-          return (req.body.amount * 7) / 100
-        case '8.5%':
-          return (req.body.amount * 8.5) / 100
+        case '15%':
+          return (req.body.amount * 15) / 100
+        case '255%':
+          return (req.body.amount * 255) / 100
+        case '35%':
+          return (req.body.amount * 35) / 100
+        case '45%':
+          return (req.body.amount * 45) / 100
+        case '55%':
+          return (req.body.amount * 55) / 100
+        case '65%':
+          return (req.body.amount * 65) / 100
       }
     })()
     if (user.capital >= req.body.amount) {
